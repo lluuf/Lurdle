@@ -1,12 +1,80 @@
 html {
     font-size: 62.5%;
+}
+body {
     font-family: 'Tilt Neon', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    /* overflow: hidden; */
 }
 
-/* .area { */
-    /* width: 60vw; */
-    /* margin: 0 auto; */
-/* } */
+.container {
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    width: 70vw;
+    height: 100vh;
+    max-height: 100%;
+    justify-content: center;
+    align-content: center;
+}
+
+.menu {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 1rem;
+    width: 100%;
+    max-width: 60rem;
+}
+
+p {
+    margin: 0;
+}
+
+.settings_field {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 13rem;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 5px 0;
+}
+
+.button {
+    font-size: 10rem;
+    transition: background-color 0.2s;
+}
+
+.button:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.slider {
+    align-content:center;
+    font-size: 3rem;
+}
+
+.slider_box {
+    height: 3rem;
+    width: 100%;
+    background-color: rgb(136, 136, 136);
+    margin: 0 2rem;
+    border-radius: 300px;
+    overflow: hidden;
+}
+
+.slider_ind {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: 2rem;
+    color: white;
+    padding-left: 5px;
+    background-color: rgb(0, 0, 0);
+    height: 100%;
+    width: 20%;
+}
 
 .grid {
     display: grid;
@@ -27,6 +95,5 @@ html {
 }
 
 .letter_field p {
-    margin: 0;
     text-transform: uppercase;
 }
