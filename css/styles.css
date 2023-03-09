@@ -69,11 +69,12 @@ p {
     flex-wrap: wrap;
     align-items: center;
     font-size: 2rem;
-    color: white;
+    color: rgb(255, 255, 255);
     padding-left: 5px;
     background-color: rgb(0, 0, 0);
     height: 100%;
-    width: 20%;
+    width: var(--relative_pos);
+    user-select: none;
 }
 
 .grid {
