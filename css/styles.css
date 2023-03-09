@@ -4,6 +4,7 @@ html {
 body {
     font-family: 'Tilt Neon', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     /* overflow: hidden; */
+    background-color: rgb(223, 223, 223);
 }
 
 .container {
@@ -55,6 +56,20 @@ p {
     font-size: 3rem;
 }
 
+.slider_text {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    width: 100%;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+#textw,
+#texth {
+    text-align: right;
+}
+
 .slider_box {
     height: 3rem;
     width: 100%;
@@ -70,10 +85,10 @@ p {
     align-items: center;
     font-size: 2rem;
     color: rgb(255, 255, 255);
-    padding-left: 5px;
     background-color: rgb(0, 0, 0);
     height: 100%;
     width: var(--relative_pos);
+    border-radius: 30px;
     user-select: none;
 }
 
