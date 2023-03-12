@@ -1,3 +1,6 @@
+const button = document.querySelectorAll('.buttons')
+const menu = document.querySelector('.menu')
+const wordle = document.querySelector('.wordle')
 const elementh = document.querySelector('#sliderh')
 const elementw = document.querySelector('#sliderw')
 const texth = document.querySelector('#texth')
@@ -11,16 +14,23 @@ var Stepsh
 var Stepsw
 var valueh = 3
 var valuew = 2
+var rows = valueh+3
+var columns = valuew+3
+
+export {rows, columns};
 
 function relcalch() {
-    var relPos2 = valueh * Stepsh
+    let relPos2 = valueh * Stepsh
     elementh.style.setProperty("--relative_pos",`${relPos2}px`)
+    elementh.style.setProperty("--rows",`${valueh + 3}`)
+    elementw.style.setProperty("--columns",`${valuew + 3}`)
     texth.innerHTML = valueh +3
 }
 
 function relcalcw() {
-    var relPos2 = valuew * Stepsw
+    let relPos2 = valuew * Stepsw
     elementw.style.setProperty("--relative_pos",`${relPos2}px`)
+    elementw.style.setProperty("--columns",`${valuew + 3}`)
     textw.innerHTML = valuew +3
 }
 
@@ -29,7 +39,6 @@ function refresh() {
     posw = elementw.getBoundingClientRect();
     hWidth = posh.right-posh.left
     wWidth = posw.right-posw.left
-    console.log(hWidth)
     Stepsh = hWidth / 8
     Stepsw = wWidth / 5
     relcalch(valueh)
@@ -59,15 +68,26 @@ elementw.addEventListener("mouseup", () => {
     elementw.removeEventListener("mousemove", handleEventw);
 })
 
+document.body.addEventListener("mouseup", () => {
+    elementw.removeEventListener("mousemove", handleEventw);
+    elementh.removeEventListener("mousemove", handleEventh);
+});
 
 function handleEventh(e){
-    var relPos = e.clientX + 10 - posh.left
+    let relPos = e.clientX + 10 - posh.left
     valueh = Math.floor(relPos / Stepsh)
     relcalch(valueh)
 }
 
 function handleEventw(e){
-    var relPos = e.clientX +10 - posw.left
+    let relPos = e.clientX +10 - posw.left
     valuew = Math.floor(relPos / Stepsw)
     relcalcw(valuew)
 }
+
+button.forEach(item => {
+    item.addEventListener("click", () => {
+        menu.classList.toggle('inactive')
+        wordle.classList.toggle('inactive')
+    });
+})

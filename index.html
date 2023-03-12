@@ -13,12 +13,16 @@
       href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap"
       rel="stylesheet"
     />
+    <script
+      src="https://kit.fontawesome.com/7c7f675789.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <!-- <input type="range" name="" id="" /> -->
     <div class="container">
       <div class="menu">
-        <div class="settings_field button">
+        <div class="settings_field button buttons">
           <p>start</p>
         </div>
         <div class="settings_field slider height">
@@ -40,7 +44,11 @@
           </div>
         </div>
       </div>
+      <div class="wordle inactive">
+        <i class="buttons icon arrow fa-solid fa-arrow-right"></i>
+      </div>
     </div>
   </body>
-  <script src="js/main.js"></script>
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/wordle.js"></script>
 </html>
