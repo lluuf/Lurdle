@@ -1,9 +1,14 @@
-import {rows, columns} from './main.js';
-console.log(rows)
-console.log(columns)
+const button = document.querySelectorAll('.buttons')
+const rowscolumns = document.getElementById('sliderh')
 
-var fields = [];
-for (let i = 0; i < (rows * columns); i++) {
-    fields[i] = "";
-    console.log(fields)
+var rows = parseInt(rowscolumns.dataset.rows)
+var columns = parseInt(rowscolumns.dataset.columns)
+
+function update() {
+    console.log(rowscolumns.dataset.rows)
+    console.log(rowscolumns.dataset.columns)
 }
+
+button.forEach(item => {
+    item.addEventListener("click", update);
+})

@@ -12,25 +12,26 @@ var hWidth
 var wWidth
 var Stepsh
 var Stepsw
+var steepsh = 8
+var steepsw = 5
 var valueh = 3
 var valuew = 2
 var rows = valueh+3
 var columns = valuew+3
 
-export {rows, columns};
-
 function relcalch() {
-    let relPos2 = valueh * Stepsh
-    elementh.style.setProperty("--relative_pos",`${relPos2}px`)
-    elementh.style.setProperty("--rows",`${valueh + 3}`)
-    elementw.style.setProperty("--columns",`${valuew + 3}`)
+    let relPos2 = (valueh * Stepsh) / hWidth * 100
+    elementh.style.setProperty("--relative_pos",`${relPos2}%`)
+    elementh.dataset.rows = `${valueh + 3}`
+    elementh.dataset.columns = `${valuew + 3}`
     texth.innerHTML = valueh +3
 }
 
 function relcalcw() {
-    let relPos2 = valuew * Stepsw
-    elementw.style.setProperty("--relative_pos",`${relPos2}px`)
-    elementw.style.setProperty("--columns",`${valuew + 3}`)
+    let relPos2 = (valuew * Stepsw) / wWidth * 100
+    elementw.style.setProperty("--relative_pos",`${relPos2}%`)
+    elementh.dataset.rows = `${valueh + 3}`
+    elementh.dataset.columns = `${valuew + 3}`
     textw.innerHTML = valuew +3
 }
 
@@ -39,13 +40,12 @@ function refresh() {
     posw = elementw.getBoundingClientRect();
     hWidth = posh.right-posh.left
     wWidth = posw.right-posw.left
-    Stepsh = hWidth / 8
-    Stepsw = wWidth / 5
+    Stepsh = hWidth / steepsh
+    Stepsw = wWidth / steepsw
     relcalch(valueh)
     relcalcw(valuew)
 }
 
-window.onresize = refresh
 window.onload = refresh
 
 elementh.addEventListener("mousedown", () => {
@@ -76,14 +76,20 @@ document.body.addEventListener("mouseup", () => {
 function handleEventh(e){
     let relPos = e.clientX + 10 - posh.left
     valueh = Math.floor(relPos / Stepsh)
+    
     relcalch(valueh)
 }
 
 function handleEventw(e){
     let relPos = e.clientX +10 - posw.left
     valuew = Math.floor(relPos / Stepsw)
+    
+    
     relcalcw(valuew)
 }
+
+
+
 
 button.forEach(item => {
     item.addEventListener("click", () => {
