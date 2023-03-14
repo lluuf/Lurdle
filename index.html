@@ -17,12 +17,13 @@
       src="https://kit.fontawesome.com/7c7f675789.js"
       crossorigin="anonymous"
     ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   </head>
   <body>
     <!-- <input type="range" name="" id="" /> -->
     <div class="container">
       <div class="menu" id="menu">
-        <div class="settings_field button buttons">
+        <div id="startb" class="settings_field button buttons">
           <p>start</p>
         </div>
         <div class="settings_field slider height">
@@ -46,6 +47,7 @@
       </div>
       <div class="wordle inactive">
         <i class="buttons icon arrow fa-solid fa-arrow-right"></i>
+        <div id="wordle" class="grid"></div>
       </div>
     </div>
   </body>
