@@ -1,6 +1,7 @@
 const button = document.querySelectorAll('.buttons')
 const menu = document.querySelector('.menu')
 const wordle = document.querySelector('.wordle')
+const wordleGrid = document.getElementById('wordle')
 const elementh = document.querySelector('#sliderh')
 const elementw = document.querySelector('#sliderw')
 const texth = document.querySelector('#texth')
@@ -22,16 +23,16 @@ var columns = valuew+3
 function relcalch() {
     let relPos2 = (valueh * Stepsh) / hWidth * 100
     elementh.style.setProperty("--relative_pos",`${relPos2}%`)
-    elementh.dataset.rows = `${valueh + 3}`
-    elementh.dataset.columns = `${valuew + 3}`
+    wordleGrid.dataset.rows = `${valueh + 3}`
+    wordleGrid.dataset.columns = `${valuew + 3}`
     texth.innerHTML = valueh +3
 }
 
 function relcalcw() {
     let relPos2 = (valuew * Stepsw) / wWidth * 100
     elementw.style.setProperty("--relative_pos",`${relPos2}%`)
-    elementh.dataset.rows = `${valueh + 3}`
-    elementh.dataset.columns = `${valuew + 3}`
+    wordleGrid.dataset.rows = `${valueh + 3}`
+    wordleGrid.dataset.columns = `${valuew + 3}`
     textw.innerHTML = valuew +3
 }
 

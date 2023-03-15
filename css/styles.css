@@ -103,7 +103,8 @@ p {
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(5, 5fr);
+    /* grid-template-columns: repeat(5, 5fr); */
+    grid-template-columns: repeat(var(--width), 5fr);
     align-content: center;
     width: 51rem;
     margin: 0 auto;
