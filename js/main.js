@@ -90,9 +90,6 @@ function handleEventw(e){
     relcalcw(valuew)
 }
 
-
-
-
 button.forEach(item => {
     item.addEventListener("click", () => {
         active.classList.toggle('wordleOpen')

@@ -1,11 +1,11 @@
 const button = document.getElementById('startb')
 const backb = document.getElementById('backb')
 const wordle = document.getElementById("wordle");
+const active = document.querySelector('.-grid2')
 
 var rows = parseInt(wordle.dataset.rows)
 var columns = parseInt(wordle.dataset.columns)
 var letters = [];
-// var colors = []
 var nextSel = 1;
 var currentRow = 1;
 var Word
@@ -129,6 +129,9 @@ document.addEventListener('keydown', function(event) {
     removeLetter()
   } else if (event.key == 'Enter') {
     checkWord()
+  } else if (event.key == 'Escape') {
+    clear
+    active.classList.toggle('wordleOpen')
   }
 });
 

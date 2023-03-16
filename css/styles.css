@@ -4,11 +4,10 @@ html {
 body {
     font-family: 'Tilt Neon', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     overflow: hidden;
-    background-color: rgb(223, 223, 223);
+    background-color: rgb(221, 221, 221);
 }
 
 .-grid2.wordleOpen {
-    /* right: 0px; */
     transition: all 1s ease;
     transform: translateX(-100vw);
 }
@@ -38,12 +37,20 @@ body {
     width: 100vw;
 }
 
+.wordleOpen .icon {
+    position:absolute;
+    transition: all 1s ease;
+    transform: translateX(calc(100vw + 13rem));
+}
+
 .icon {
     position:absolute;
-    right: 10rem;
     top: 2rem;
     font-size: 10rem;
     padding: 0;
+    transition: all 1s ease;
+    left: -10rem;
+    /* transform: translateX(calc(-100vw + 20rem)); */
 }
 
 .menu {
