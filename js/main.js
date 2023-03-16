@@ -1,6 +1,6 @@
 const button = document.querySelectorAll('.buttons')
 const menu = document.querySelector('.menu')
-const wordle = document.querySelector('.wordle')
+const active = document.querySelector('.-grid2')
 const wordleGrid = document.getElementById('wordle')
 const elementh = document.querySelector('#sliderh')
 const elementw = document.querySelector('#sliderw')
@@ -95,8 +95,6 @@ function handleEventw(e){
 
 button.forEach(item => {
     item.addEventListener("click", () => {
-        menu.classList.toggle('inactive')
-        wordle.classList.toggle('inactive')
-        container.classList.toggle('inactive')
+        active.classList.toggle('wordleOpen')
     });
 })
