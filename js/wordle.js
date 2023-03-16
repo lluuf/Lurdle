@@ -25,7 +25,6 @@ function openWord() {
     for (let i = 0; i < lines.length; i++) {
       Words.push(String(lines[i]).substring(0, columns))
     }
-    console.log(Words)
     console.log(Word)
     WantedLetters()
   });
@@ -33,7 +32,6 @@ function openWord() {
 
 function update() {
   letters = []
-  // colors = []
   rows = parseInt(wordle.dataset.rows)
   columns = parseInt(wordle.dataset.columns)
   wordle.style.setProperty("--width", `${columns}`)
@@ -43,7 +41,6 @@ function update() {
 
   for (let i = 0; i < (rows * columns); i++) {
     letters.push("")
-    // colors.push("")
   }
 
   let i = 0
@@ -51,7 +48,6 @@ function update() {
     i++
     var newDiv = document.createElement("div");
     newDiv.className = "letter_field";
-    // newDiv.id = i
     var p = document.createElement("p");
     p.id = i
     var node = document.createTextNode(letter);
@@ -111,28 +107,18 @@ function checkSpelling(inputWord) {
       }
     })
   });
-  console.log(Wanted)
-  console.log(inputWord)
   currentRow++
 }
 
 function checkWord() {
   if (nextSel / (currentRow * columns) > 1) {
-    console.log("checking")
     let InputWord = ""
     for (let i = (currentRow-1) * columns; i < currentRow* columns; i++) {
       InputWord += letters[i]
     }
     if (Words.includes(InputWord)) {
-      console.log("CORRECT")
       checkSpelling(InputWord.split(''))
-    } else {
-      console.log("WRONG")
-    }
-    
-
-
-
+    } 
   }
 }
 
@@ -143,8 +129,6 @@ document.addEventListener('keydown', function(event) {
     removeLetter()
   } else if (event.key == 'Enter') {
     checkWord()
-  } else {
-    console.log(event.key)
   }
 });
 

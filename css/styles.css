@@ -8,6 +8,7 @@ body {
 }
 
 .container {
+    display: inline-block;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
@@ -16,6 +17,32 @@ body {
     max-height: 100%;
     justify-content: center;
     align-items: center;
+}
+
+
+/* .wordle.inactive.icon {
+    left: 3rem;
+} */
+
+
+.wordle.inactive {
+    transform: translateX(calc(50vw + 50%));
+    transition: transform 1s ease
+}
+
+.wordle {
+    height: 100%;
+    display: grid;
+    transition: transform 1s ease;
+    transform: translateX(0px);
+}
+
+.icon {
+    position:absolute;
+    right: 3rem;
+    top: 2rem;
+    font-size: 10rem;
+    padding: 0;
 }
 
 .menu.inactive {
@@ -104,11 +131,12 @@ p {
 .grid {
     display: grid;
     /* grid-template-columns: repeat(5, 5fr); */
-    grid-template-columns: repeat(var(--width), 5fr);
+    grid-template-columns: repeat(var(--width), 2fr);
     align-content: center;
     width: 51rem;
     margin: 0 auto;
     padding: 0;
+    justify-content: center;
 }
 
 .letter_field {
@@ -122,12 +150,4 @@ p {
 
 .letter_field p {
     text-transform: uppercase;
-}
-
-.icon {
-    position:absolute;
-    right: 3rem;
-    top: 2rem;
-    font-size: 10rem;
-    padding: 0;
 }

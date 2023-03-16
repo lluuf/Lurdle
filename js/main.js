@@ -6,6 +6,7 @@ const elementh = document.querySelector('#sliderh')
 const elementw = document.querySelector('#sliderw')
 const texth = document.querySelector('#texth')
 const textw = document.querySelector('#textw')
+const container = document.getElementById('container')
 
 var posh
 var posw
@@ -96,5 +97,6 @@ button.forEach(item => {
     item.addEventListener("click", () => {
         menu.classList.toggle('inactive')
         wordle.classList.toggle('inactive')
+        container.classList.toggle('inactive')
     });
 })
