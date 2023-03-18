@@ -158,3 +158,8 @@ p {
     cursor: not-allowed;
     pointer-events: none;
   }
+
+.win {
+    box-shadow:0px 0px 40px #09ff00;
+    transition: box-shadow .3s linear;
+}

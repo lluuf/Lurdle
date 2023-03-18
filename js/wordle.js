@@ -2,6 +2,7 @@ const button = document.getElementById('startb')
 const backb = document.getElementById('backb')
 const wordle = document.getElementById("wordle");
 const active = document.querySelector('.-grid2')
+const bigWordle = document.querySelector('#big_wordle')
 
 var rows = parseInt(wordle.dataset.rows)
 var columns = parseInt(wordle.dataset.columns)
@@ -11,6 +12,7 @@ var currentRow = 1;
 var Word
 var Words = []
 var Wanted = []
+var win = 0
 
 function WantedLetters() {
   Wanted = Word.split('')
@@ -46,6 +48,7 @@ function update() {
   wordle.style.setProperty("--width", `${columns}`)
   currentRow = 1
   nextSel = 1
+  win = 0
   tileSize()
   openWord()
 
@@ -90,16 +93,18 @@ function enterLetter(key) {
     else {
       document.getElementById(`${nextSel - 1}p`).classList.add("current")
     }
-    // if (nextSel == currentRow*columns + 1) {
-    //   nextSel--;
-    // }
+    if (nextSel == currentRow*columns + 1) {
+      nextSel--;
+    }
   }
 }
 
 function removeLetter() {
   if (nextSel-1 !== (currentRow-1) * columns) {
     document.getElementById(`${nextSel}p`).classList.remove("current")
-    nextSel--
+    if (letters[nextSel - 1] == "") {
+      nextSel--
+    }
     document.getElementById(`${nextSel}p`).classList.add("current")
     let currentp = document.getElementById(nextSel)
     letters[nextSel - 1] = ""
@@ -107,57 +112,76 @@ function removeLetter() {
   }
 }
 
-function checkSpelling(inputWord) {
+function checkSpelling(inputWord, inputWordFull) {
   for (let i = (currentRow-1) * columns; i < (currentRow) * columns; i++) {
     const currente = document.getElementById(i + 1).parentNode;
     currente.style.setProperty("background-color","gray")
   }
-  
-  Wanted.forEach((checkEnd, indexEnd) => {
-    inputWord.forEach((checkInp,indexInp) => {
-      if (checkInp == checkEnd) {
-        const currentp = document.getElementById(indexInp + (currentRow-1) * columns + 1).parentNode;
-        if (indexInp == indexEnd) {
-          currentp.style.setProperty("background-color", "#45ff17")
-        }
-        else {
-          const style = window.getComputedStyle(currentp);
-          const backgroundColor = style.getPropertyValue('background-color');
-          if (backgroundColor !== "rgb(69, 255, 23)") {
-            currentp.style.setProperty("background-color", "orange")
-          } else {
+
+  if (Word != inputWordFull || win) {
+    Wanted.forEach((checkEnd, indexEnd) => {
+      inputWord.forEach((checkInp,indexInp) => {
+        if (checkInp == checkEnd) {
+          const currentp = document.getElementById(indexInp + (currentRow-1) * columns + 1).parentNode;
+          if (indexInp == indexEnd) {
+            currentp.style.setProperty("background-color", "#45ff17")
+          }
+          else {
+            const style = window.getComputedStyle(currentp);
+            const backgroundColor = style.getPropertyValue('background-color');
+            if (backgroundColor !== "rgb(69, 255, 23)") {
+              currentp.style.setProperty("background-color", "orange")
+            } else {
+            }
           }
         }
-      }
-    })
-  });
-  currentRow++
+      })
+    });
+    document.getElementById(`${nextSel}p`).classList.remove("current")
+    nextSel++;
+    document.getElementById(`${nextSel}p`).classList.add("current")
+    currentRow++
+  }
+  else {
+    for(let i = (currentRow - 1) * columns + 1; i <= currentRow * columns; i++) {
+      document.getElementById(`${i}p`).style.setProperty("background-color", "#45ff17")
+    }
+    document.getElementById(`${nextSel}p`).classList.remove("current")
+    win = 1
+    console.log(win)
+    WinAnim = (currentRow - 1) * columns + 1
+    winAnimation()
+  }
 }
 
 function checkWord() {
-  if (nextSel / (currentRow * columns) > 1) {
+  // if ((nextSel+1) / (currentRow * columns) > 1) {
     let InputWord = ""
     for (let i = (currentRow-1) * columns; i < currentRow* columns; i++) {
       InputWord += letters[i]
     }
     if (Words.includes(InputWord)) {
-      checkSpelling(InputWord.split(''))
-    } 
-  }
+      checkSpelling(InputWord.split(''), InputWord)
+    }
+  // }
 }
 
 document.addEventListener('keydown', function(event) {
-  if (event.key >= 'a' && event.key <= 'z') {
+  if (event.key >= 'a' && event.key <= 'z' && !win) {
     enterLetter(event.key)
-  } else if (event.key == 'Backspace') {
+  } else if (event.key == 'Backspace' && !win) {
     removeLetter()
-  } else if (event.key == 'Enter') {
+  } else if (event.key == 'Enter' && !win) {
     checkWord()
   } else if (event.key == 'Escape') {
     if (active.classList.contains('wordleOpen') && !(button.classList.contains('disabled'))){
       clear()
       active.classList.remove('wordleOpen')
     }
+  } else if (event.key == 'ArrowLeft' && !win){
+    goLeft()
+  } else if (event.key == 'ArrowRight' && !win){
+    goRight()
   }
 });
 
@@ -219,15 +243,44 @@ function changeCurrent(currentID, selDiv) {
 wordle_elem.addEventListener("click", function(event) {
   let currID = event.target.id;
   let currentID = parseInt(currID.substring(0, currID.length - 1))
-
-  changeCurrent(currentID, event.target)
-  
-  // if (currentID > (currentRow - 1) * columns && currentID <= currentRow * columns) {
-  //   for (let i = (currentRow - 1) * columns + 1; i <= currentRow * columns; i++) {
-  //     document.getElementById(`${i}p`).classList.remove("current")
-  //     console.log(i)
-  //   }
-  //   event.target.classList.add("current")
-  //   nextSel = currentID;
-  // }
+  if (!win){
+    changeCurrent(currentID, event.target)
+  }
 });
+
+
+function goLeft() {
+  if ((nextSel - 1) > (currentRow - 1) * columns) {
+    document.getElementById(`${nextSel}p`).classList.remove("current")
+    nextSel--
+    document.getElementById(`${nextSel}p`).classList.add("current")
+  }
+}
+function goRight() {
+  if ((nextSel + 1) < currentRow * columns + 1) {
+    document.getElementById(`${nextSel}p`).classList.remove("current")
+    nextSel++
+    document.getElementById(`${nextSel}p`).classList.add("current")
+  }
+}
+
+var WinAnim = 0
+
+function winAnimation() {
+  // TODO: victory text
+  // if (!bigWordle.classList.contains("won")) {
+  //   let p = document.createElement("p")
+  //   let WinText = document.createTextNode("You Won!");
+  //   p.append(WinText)
+  //   bigWordle.appendChild(p)
+  // }
+
+  bigWordle.classList.add("won")
+  setTimeout(function() {
+    document.getElementById(`${WinAnim}p`).classList.add("win")
+    WinAnim++;
+    if (WinAnim <= (currentRow * columns)) { 
+      winAnimation();
+    }
+  }, 250)
+}
