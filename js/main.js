@@ -9,6 +9,8 @@ const Bigelementw = document.querySelector('#width')
 const texth = document.querySelector('#texth')
 const textw = document.querySelector('#textw')
 const container = document.getElementById('container')
+const startb = document.getElementById('startb')
+const backb = document.getElementById('backb')
 
 var posh
 var posw
@@ -97,11 +99,6 @@ function handleEventw(e){
     relcalcw(valuew)
 }
 
-button.forEach(item => {
-    item.addEventListener("click", () => {
-        active.classList.toggle('wordleOpen')
-    });
-})
 
 window.addEventListener('load', () => {
     document.body.style.setProperty('overflow','visible')

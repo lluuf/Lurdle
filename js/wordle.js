@@ -16,6 +16,13 @@ function WantedLetters() {
   Wanted = Word.split('')
 }
 
+function StartDisable() {
+  button.classList.toggle('disabled');
+  setTimeout(() => {
+    button.classList.toggle('disabled');
+  }, 1000);
+}
+
 function openWord() {
   $.get ('/word-list/words1/letters_' + columns + '.txt', {},function (content) {
     let lines=content.split ('\n');
@@ -31,6 +38,8 @@ function openWord() {
 }
 
 function update() {
+  StartDisable();
+  
   letters = []
   rows = parseInt(wordle.dataset.rows)
   columns = parseInt(wordle.dataset.columns)
@@ -62,10 +71,7 @@ function clear() {
   setTimeout(function(){ 
     wordle.innerHTML = ""
   }, 1000);
-  button.classList.toggle('disabled');
-    setTimeout(() => {
-      button.classList.toggle('disabled');
-    }, 1000);
+  StartDisable()
 }
 
 function enterLetter(key) {
@@ -134,14 +140,27 @@ document.addEventListener('keydown', function(event) {
   } else if (event.key == 'Enter') {
     checkWord()
   } else if (event.key == 'Escape') {
-    clear
-    active.classList.toggle('wordleOpen')
+    if (active.classList.contains('wordleOpen') && !(button.classList.contains('disabled'))){
+      clear()
+      active.classList.remove('wordleOpen')
+    }
   }
 });
 
-backb.addEventListener("click", clear);
 
-button.addEventListener("click", update);
+backb.addEventListener("click", () => {
+  if(backb.classList.contains('clickable')) {
+    clear();
+  }
+  active.classList.remove('wordleOpen')
+  backb.classList.remove('clickable')
+})
+
+button.addEventListener("click", () => {
+  active.classList.add('wordleOpen')
+  backb.classList.add('clickable')
+  update();
+})
 
 
 // TODO:
