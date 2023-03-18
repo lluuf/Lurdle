@@ -99,7 +99,6 @@ function checkSpelling(inputWord) {
   }
   
   Wanted.forEach((checkEnd, indexEnd) => {
-    // const currente = document.getElementById(indexEnd + (currentRow-1) * columns + 1).parentNode;
     inputWord.forEach((checkInp,indexInp) => {
       if (checkInp == checkEnd) {
         const currentp = document.getElementById(indexInp + (currentRow-1) * columns + 1).parentNode;

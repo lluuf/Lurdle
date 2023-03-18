@@ -1,6 +1,3 @@
-const button = document.querySelectorAll('.buttons')
-const menu = document.querySelector('.menu')
-const active = document.querySelector('.-grid2')
 const wordleGrid = document.getElementById('wordle')
 const elementh = document.querySelector('#sliderh')
 const Bigelementh = document.querySelector('#height')
@@ -8,9 +5,6 @@ const elementw = document.querySelector('#sliderw')
 const Bigelementw = document.querySelector('#width')
 const texth = document.querySelector('#texth')
 const textw = document.querySelector('#textw')
-const container = document.getElementById('container')
-const startb = document.getElementById('startb')
-const backb = document.getElementById('backb')
 
 var posh
 var posw
