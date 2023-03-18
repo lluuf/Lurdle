@@ -3,7 +3,9 @@ const menu = document.querySelector('.menu')
 const active = document.querySelector('.-grid2')
 const wordleGrid = document.getElementById('wordle')
 const elementh = document.querySelector('#sliderh')
+const Bigelementh = document.querySelector('#height')
 const elementw = document.querySelector('#sliderw')
+const Bigelementw = document.querySelector('#width')
 const texth = document.querySelector('#texth')
 const textw = document.querySelector('#textw')
 const container = document.getElementById('container')
@@ -52,31 +54,35 @@ window.onload = refresh
 
 elementh.addEventListener("mousedown", () => {
     refresh();
-    elementh.addEventListener("mousemove", handleEventh);
+    Bigelementh.addEventListener("mousemove", handleEventh);
 })
     
 elementh.addEventListener("mouseup", () => {
     refresh();
-    elementh.removeEventListener("mousemove", handleEventh);
+    Bigelementh.removeEventListener("mousemove", handleEventh);
 })
 
 elementw.addEventListener("mousedown", () => {
     refresh();
-    elementw.addEventListener("mousemove", handleEventw);
+    Bigelementw.addEventListener("mousemove", handleEventw);
 })
     
 elementw.addEventListener("mouseup", () => {
     refresh();
-    elementw.removeEventListener("mousemove", handleEventw);
+    Bigelementw.removeEventListener("mousemove", handleEventw);
 })
 
+elementh.addEventListener("mousedown", handleEventh);
+elementw.addEventListener("mousedown", handleEventw)
+
 document.body.addEventListener("mouseup", () => {
-    elementw.removeEventListener("mousemove", handleEventw);
-    elementh.removeEventListener("mousemove", handleEventh);
+    Bigelementw.removeEventListener("mousemove", handleEventw);
+    Bigelementh.removeEventListener("mousemove", handleEventh);
 });
 
 function handleEventh(e){
     let relPos = e.clientX + 10 - posh.left
+    if (relPos <= 0) relPos = 0
     valueh = Math.floor(relPos / Stepsh)
     
     relcalch(valueh)
@@ -84,6 +90,7 @@ function handleEventh(e){
 
 function handleEventw(e){
     let relPos = e.clientX +10 - posw.left
+    if (relPos <= 0) relPos = 0
     valuew = Math.floor(relPos / Stepsw)
     
     
@@ -95,3 +102,11 @@ button.forEach(item => {
         active.classList.toggle('wordleOpen')
     });
 })
+
+window.addEventListener('load', () => {
+    document.body.style.setProperty('overflow','visible')
+    setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.body.style.setProperty('overflow','hidden');
+    }, 1);
+});

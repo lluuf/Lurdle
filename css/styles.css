@@ -5,6 +5,7 @@ body {
     font-family: 'Tilt Neon', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     overflow: hidden;
     background-color: rgb(221, 221, 221);
+    user-select: none;
 }
 
 .-grid2.wordleOpen {
@@ -129,10 +130,8 @@ p {
 
 .grid {
     display: grid;
-    /* grid-template-columns: repeat(5, 5fr); */
     grid-template-columns: repeat(var(--width), 2fr);
     align-content: center;
-    width: 51rem;
     margin: 0 auto;
     padding: 0;
     justify-content: center;
@@ -150,3 +149,8 @@ p {
 .letter_field p {
     text-transform: uppercase;
 }
+
+.disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+  }

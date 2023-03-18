@@ -62,6 +62,10 @@ function clear() {
   setTimeout(function(){ 
     wordle.innerHTML = ""
   }, 1000);
+  button.classList.toggle('disabled');
+    setTimeout(() => {
+      button.classList.toggle('disabled');
+    }, 1000);
 }
 
 function enterLetter(key) {
@@ -138,3 +142,8 @@ document.addEventListener('keydown', function(event) {
 backb.addEventListener("click", clear);
 
 button.addEventListener("click", update);
+
+
+// TODO:
+// EDIT TILE SIZE
+
