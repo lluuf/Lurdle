@@ -39,14 +39,16 @@ function openWord() {
 
 function update() {
   StartDisable();
-  
+
   letters = []
   rows = parseInt(wordle.dataset.rows)
   columns = parseInt(wordle.dataset.columns)
   wordle.style.setProperty("--width", `${columns}`)
   currentRow = 1
   nextSel = 1
+  tileSize()
   openWord()
+
 
   for (let i = 0; i < (rows * columns); i++) {
     letters.push("")
@@ -58,13 +60,14 @@ function update() {
     var newDiv = document.createElement("div");
     newDiv.className = "letter_field";
     var p = document.createElement("p");
+    newDiv.id = `${i}p`
     p.id = i
     var node = document.createTextNode(letter);
     p.appendChild(node);
     newDiv.appendChild(p);
     wordle.appendChild(newDiv);
   });
-  
+  document.getElementById("1p").classList.add("current")
 }
 
 function clear() {
@@ -79,13 +82,25 @@ function enterLetter(key) {
     let currentp = document.getElementById(nextSel)
     letters[nextSel - 1] = key
     currentp.innerHTML = letters[nextSel - 1]
+    document.getElementById(`${nextSel}p`).classList.remove("current")
     nextSel++
+    if (nextSel <= currentRow * columns) {
+      document.getElementById(`${nextSel}p`).classList.add("current")
+    }
+    else {
+      document.getElementById(`${nextSel - 1}p`).classList.add("current")
+    }
+    // if (nextSel == currentRow*columns + 1) {
+    //   nextSel--;
+    // }
   }
 }
 
 function removeLetter() {
   if (nextSel-1 !== (currentRow-1) * columns) {
+    document.getElementById(`${nextSel}p`).classList.remove("current")
     nextSel--
+    document.getElementById(`${nextSel}p`).classList.add("current")
     let currentp = document.getElementById(nextSel)
     letters[nextSel - 1] = ""
     currentp.innerHTML = letters[nextSel - 1]
@@ -162,6 +177,57 @@ button.addEventListener("click", () => {
 })
 
 
-// TODO:
-// EDIT TILE SIZE
+function tileSize() {
+  let availHeight = parseInt($(window).height()) - 100
+  let availWidth = parseInt($(window).width()) - 100
+  
+  if (availHeight >= (rows*100) && availWidth >= (columns * 100)) {
+    active.style.setProperty('--elemSize', '10rem')
+    active.style.setProperty('--elemSize2', '8.5rem')
+  }
+  else if (availWidth < (columns*100)) {
+    let elemSize = availWidth/(columns*10)
+    active.style.setProperty("--elemSize", `${elemSize}rem`)
+    active.style.setProperty("--elemSize2", `${elemSize - 1.5}rem`)
+  }
+  else {
+    let elemSize = availHeight/(rows*10)
+    active.style.setProperty("--elemSize", `${elemSize}rem`)
+    active.style.setProperty("--elemSize2", `${elemSize - 1.5}rem`)
+  }
+}
 
+window.onresize = function() {
+  tileSize()
+}
+
+
+// Get the parent div element
+var wordle_elem = document.getElementById("wordle");
+var pElements = document.querySelectorAll("letter_field");
+
+function changeCurrent(currentID, selDiv) {
+  if (currentID > (currentRow - 1) * columns && currentID <= currentRow * columns) {
+    for (let i = (currentRow - 1) * columns + 1; i <= currentRow * columns; i++) {
+      document.getElementById(`${i}p`).classList.remove("current")
+    }
+    selDiv.classList.add("current")
+    nextSel = currentID;
+  }
+}
+
+wordle_elem.addEventListener("click", function(event) {
+  let currID = event.target.id;
+  let currentID = parseInt(currID.substring(0, currID.length - 1))
+
+  changeCurrent(currentID, event.target)
+  
+  // if (currentID > (currentRow - 1) * columns && currentID <= currentRow * columns) {
+  //   for (let i = (currentRow - 1) * columns + 1; i <= currentRow * columns; i++) {
+  //     document.getElementById(`${i}p`).classList.remove("current")
+  //     console.log(i)
+  //   }
+  //   event.target.classList.add("current")
+  //   nextSel = currentID;
+  // }
+});

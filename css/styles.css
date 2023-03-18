@@ -41,11 +41,11 @@ body {
 .wordleOpen .icon {
     position:absolute;
     transform: translateX(calc(100vw + 13rem));
-    transition: all 1s ease;
+    transition: transform 1s ease;
 }
 
 .icon {
-    font-size: 10rem;
+    font-size: var(--elemSize);
     left: -10rem;
     padding: 0;
     position:absolute;
@@ -136,17 +136,22 @@ p {
     padding: 0;
 }
 
+.current {
+    box-shadow:0px 0px 10px gray;
+}
+
 .letter_field {
     border-radius: 0px;
     border: 1px solid black;
-    font-size: 8.5rem;
-    height: 10rem;
+    font-size: var(--elemSize2);
+    height: var(--elemSize);
     text-align: center;
-    width: 10rem;
+    width: var(--elemSize);
 }
 
 .letter_field p {
     text-transform: uppercase;
+    pointer-events: none;
 }
 
 .disabled {
