@@ -2,7 +2,9 @@ const button = document.getElementById('startb')
 const backb = document.getElementById('backb')
 const wordle = document.getElementById("wordle");
 const active = document.querySelector('.-grid2')
-const bigWordle = document.querySelector('#big_wordle')
+// const winScreen = document.querySelector('.winScreen')
+const winScreen = document.querySelector('#big_wordle')
+const winField = document.getElementById('winField')
 
 var rows = parseInt(wordle.dataset.rows)
 var columns = parseInt(wordle.dataset.columns)
@@ -49,6 +51,7 @@ function update() {
   currentRow = 1
   nextSel = 1
   win = 0
+  winScreen.classList.remove("won")
   tileSize()
   openWord()
 
@@ -74,6 +77,7 @@ function update() {
 }
 
 function clear() {
+  winScreen.classList.remove("won")
   setTimeout(function(){ 
     wordle.innerHTML = ""
   }, 1000);
@@ -148,7 +152,10 @@ function checkSpelling(inputWord, inputWordFull) {
     }
     document.getElementById(`${nextSel}p`).classList.remove("current")
     win = 1
-    console.log(win)
+    let allWins = localStorage.getItem("wordleWins")
+    allWins++
+    localStorage.setItem("wordleWins", allWins)
+    winField.innerHTML = `wins: ${allWins}`
     WinAnim = (currentRow - 1) * columns + 1
     winAnimation()
   }
@@ -268,19 +275,17 @@ var WinAnim = 0
 
 function winAnimation() {
   // TODO: victory text
-  // if (!bigWordle.classList.contains("won")) {
-  //   let p = document.createElement("p")
-  //   let WinText = document.createTextNode("You Won!");
-  //   p.append(WinText)
-  //   bigWordle.appendChild(p)
-  // }
+  winScreen.classList.add("won")
 
-  bigWordle.classList.add("won")
+  highlightAnim()
+}
+
+function highlightAnim() {
   setTimeout(function() {
     document.getElementById(`${WinAnim}p`).classList.add("win")
     WinAnim++;
     if (WinAnim <= (currentRow * columns)) { 
-      winAnimation();
+      highlightAnim();
     }
   }, 250)
 }

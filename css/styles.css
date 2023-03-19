@@ -1,11 +1,49 @@
 html {
     font-size: 62.5%;
 }
+
+:root {
+    --color-text: #dfdfdf;
+    --color-text-inv: #000000;
+    --color-background: #222222;
+    --color-slider-back: #898989;
+    --color-overlay: #ffffff0f;
+    --color-borders: #dfdfdf;
+    --color-win: #000000;
+}
+
+.light {
+    --color-text: #000000;
+    --color-text-inv: #ffffff;
+    --color-background: #dfdfdf;
+    --color-slider-back: #6a6a6a;
+    --color-overlay: #0000000f;
+    --color-borders: #000000;
+    --color-win: #000000;
+}
+
+/* Dark mode */
+/* @media (prefers-color-scheme: dark) {
+    :root {
+        --color-accent: #CCED03;
+        --color-accentHover: #c6e500;
+        --color-headings: #fff;
+        --color-primary: #171717;
+        --color-secondary: #999999;
+        --color-text: #ffffff;
+        --color-Overlay: #0000002e;
+        --color-OverlayLight: #ffffff1a;
+        --color-borders: #000000d2;
+    }
+} */
+
+
 body {
-    background-color: rgb(221, 221, 221);
+    background-color: var(--color-background);
     font-family: 'Tilt Neon', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     overflow: hidden;
     user-select: none;
+    color: var(--color-text);
 }
 
 .-grid2.wordleOpen {
@@ -33,9 +71,25 @@ body {
 }
 
 .wordle {
-    display: grid;
+    display: flex;
     height: 100vh;
     width: 100vw;
+    align-items: center;
+    justify-content: center;
+}
+
+.won #winText {
+    opacity: 1;
+    transition: opacity 1s linear;
+}
+
+#winText {
+    font-size: var(--elemSize2);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 1s linear;
+    color: var(--color-win);
+    text-shadow: 0px 0px 10px rgb(255, 255, 255),0px 0px 30px rgb(255, 255, 255),0px 0px 50px rgb(255, 255, 255),0px 0px 100px rgb(255, 255, 255);
 }
 
 .wordleOpen .icon {
@@ -54,8 +108,9 @@ body {
 }
 
 .menu {
+    background-color: var(--color-overlay);
     border-radius: 10px;
-    border: 1px solid black;
+    border: 1px solid var(--color-borders);
     max-width: 60rem;
     padding: 1rem;
     width: 100%;
@@ -67,7 +122,7 @@ p {
 
 .settings_field {
     border-radius: 10px;
-    border: 1px solid black;
+    border: 1px solid var(--color-borders);
     display: flex;
     flex-wrap: wrap;
     height: 13rem;
@@ -76,8 +131,11 @@ p {
     width: 100%;
 }
 
-.button {
+.bigText {
     font-size: 10rem;
+}
+
+.button {
     transition: background-color 0.2s;
 }
 
@@ -106,7 +164,7 @@ p {
 }
 
 .slider_box {
-    background-color: rgb(136, 136, 136);
+    background-color: var(--color-slider-back);
     border-radius: 300px;
     height: 3rem;
     margin: 0 2rem;
@@ -116,9 +174,9 @@ p {
 
 .slider_ind {
     align-items: center;
-    background-color: rgb(0, 0, 0);
+    background-color: var(--color-text);
     border-radius: 30px;
-    color: rgb(255, 255, 255);
+    color: var(--color-text-inv);
     display: flex;
     flex-wrap: wrap;
     font-size: 2rem;
@@ -142,7 +200,7 @@ p {
 
 .letter_field {
     border-radius: 0px;
-    border: 1px solid black;
+    border: 1px solid var(--color-borders);
     font-size: var(--elemSize2);
     height: var(--elemSize);
     text-align: center;
@@ -162,4 +220,49 @@ p {
 .win {
     box-shadow:0px 0px 40px #09ff00;
     transition: box-shadow .3s linear;
+}
+
+.light-icon {
+    cursor: pointer;
+    pointer-events: none;
+    color: var(--color-text-inv);
+    font-size: 2rem;
+    padding-left: 2px;
+}
+
+.light #darkDisplay {
+    cursor: pointer;
+    transform: translateX(-4.2rem);
+    transition: transform .35s ease;
+}
+
+#darkDisplay {
+    pointer-events: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    height: 3.6rem;
+    width: 3.6rem;
+    border-radius: 6rem;
+    background-color: var(--color-text);
+    transform: translateX(-.2rem);
+    transition: transform .35s ease;
+}
+
+#darkButton {
+    cursor: pointer;
+    justify-content: right;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    height: 4rem;
+    width: 8rem;
+    border-radius: 6rem;
+    border: 2px var(--color-borders) solid;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 5rem;
+    z-index: 1;
 }

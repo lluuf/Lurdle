@@ -20,10 +20,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   </head>
   <body>
+    <div id="darkButton">
+      <div id="darkDisplay">
+        <i class="light-icon fa-regular fa-lightbulb"></i>
+      </div>
+    </div>
+    </div>
     <div class="-grid2">
       <div class="menu_con">
         <div class="menu" id="menu">
-          <div id="startb" class="settings_field button buttons">
+          <div id="startb" class="settings_field button buttons bigText">
             <p>start</p>
           </div>
           <div class="settings_field slider height" id="height">
@@ -44,11 +50,15 @@
               <div class="slider_ind"></div>
             </div>
           </div>
+          <div class="settings_field bigText">
+            <p id="winField">wins: 0</p>
+          </div>
         </div>
       </div>
       <div class="wordle" id="big_wordle">
         <i id="backb" class="buttons icon arrow fa-solid fa-arrow-left"></i>
         <div id="wordle" class="grid"></div>
+        <p id="winText">You won!</p>
       </div>
     </div>
   </body>

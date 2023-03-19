@@ -5,6 +5,9 @@ const elementw = document.querySelector('#sliderw')
 const Bigelementw = document.querySelector('#width')
 const texth = document.querySelector('#texth')
 const textw = document.querySelector('#textw')
+const winField = document.getElementById('winField')
+const darkDisplay = document.getElementById('darkDisplay')
+const darkButton = document.getElementById('darkButton')
 
 var posh
 var posw
@@ -44,6 +47,7 @@ function refresh() {
     Stepsw = wWidth / steepsw
     relcalch(valueh)
     relcalcw(valuew)
+    retrieveData()
 }
 
 window.onload = refresh
@@ -101,3 +105,30 @@ window.addEventListener('load', () => {
         document.body.style.setProperty('overflow','hidden');
     }, 1);
 });
+
+function retrieveData() {
+    if (localStorage.getItem("wordleWins") === null) {
+        console.log("myInt is not set in localStorage");
+        localStorage.setItem("wordleWins", 0)
+        winField.innerHTML = "wins: 0"
+    }
+    else {
+        let allWins = localStorage.getItem("wordleWins")
+        localStorage.setItem("wordleWins", allWins)
+        winField.innerHTML = `wins: ${allWins}`
+    }
+
+    if (localStorage.getItem('light') == 1) {
+        document.body.classList.add('light')
+    }
+}
+
+darkButton.addEventListener("click", () => {
+    if (document.body.classList.contains('light')) {
+        localStorage.setItem('light', 0)
+    }
+    else {
+        localStorage.setItem('light', 1)
+    }
+    document.body.classList.toggle('light');
+})
