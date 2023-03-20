@@ -44,6 +44,7 @@ body {
     overflow: hidden;
     user-select: none;
     color: var(--color-text);
+    transition: background-color 1s ease;
 }
 
 .-grid2.wordleOpen {
@@ -92,6 +93,22 @@ body {
     text-shadow: 0px 0px 10px rgb(255, 255, 255),0px 0px 30px rgb(255, 255, 255),0px 0px 50px rgb(255, 255, 255),0px 0px 100px rgb(255, 255, 255);
 }
 
+.loss #bottomText {
+    opacity: 1;
+    transition: opacity 1s linear;
+    transition: color 1s ease
+}
+
+#bottomText {
+    opacity: 0;
+    position: absolute;
+    font-size: 4rem;
+    color: var(--color-text);
+    bottom: 5rem;
+    transition: opacity 1s linear;
+    transition: color 1s ease;
+}
+
 .wordleOpen .icon {
     position:absolute;
     transform: translateX(calc(100vw + 13rem));
@@ -114,6 +131,7 @@ body {
     max-width: 60rem;
     padding: 1rem;
     width: 100%;
+    transition: border-color 1s ease;
 }
 
 p {
@@ -129,6 +147,7 @@ p {
     justify-content: center;
     margin: 5px 0;
     width: 100%;
+    transition: border-color 1s ease;
 }
 
 .bigText {
@@ -136,12 +155,13 @@ p {
 }
 
 .button {
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, border-color 1s ease;
 }
 
 .button:hover {
     background-color: #f1f1f1;
     cursor: pointer;
+    color: #000000;
 }
 
 .slider {
@@ -170,6 +190,7 @@ p {
     margin: 0 2rem;
     overflow: hidden;
     width: 100%;
+    transition: background-color 1s ease;
 }
 
 .slider_ind {
@@ -183,6 +204,7 @@ p {
     height: 100%;
     user-select: none;
     width: var(--relative_pos);
+    transition: background-color 1s ease;
 }
 
 .grid {
@@ -198,6 +220,10 @@ p {
     box-shadow:0px 0px 10px gray;
 }
 
+.letter_field.fieldWin {
+    color: var(--color-win);
+}
+
 .letter_field {
     border-radius: 0px;
     border: 1px solid var(--color-borders);
@@ -205,6 +231,7 @@ p {
     height: var(--elemSize);
     text-align: center;
     width: var(--elemSize);
+    transition: border-color 1s ease;
 }
 
 .letter_field p {
@@ -227,13 +254,14 @@ p {
     pointer-events: none;
     color: var(--color-text-inv);
     font-size: 2rem;
-    padding-left: 2px;
+    /* padding-left: 2px; */
+    transition: color 1s ease;
 }
 
 .light #darkDisplay {
     cursor: pointer;
     transform: translateX(-4.2rem);
-    transition: transform .35s ease;
+    transition: transform .35s ease, background-color 1s ease;
 }
 
 #darkDisplay {
@@ -247,7 +275,7 @@ p {
     border-radius: 6rem;
     background-color: var(--color-text);
     transform: translateX(-.2rem);
-    transition: transform .35s ease;
+    transition: transform .35s ease, background-color 1s ease;
 }
 
 #darkButton {
@@ -265,4 +293,5 @@ p {
     top: 1rem;
     font-size: 5rem;
     z-index: 1;
+    transition: border-color 1s ease;
 }

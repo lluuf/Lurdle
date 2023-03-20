@@ -5,6 +5,7 @@ const active = document.querySelector('.-grid2')
 // const winScreen = document.querySelector('.winScreen')
 const winScreen = document.querySelector('#big_wordle')
 const winField = document.getElementById('winField')
+const bottomText = document.getElementById('bottomText')
 
 var rows = parseInt(wordle.dataset.rows)
 var columns = parseInt(wordle.dataset.columns)
@@ -15,6 +16,7 @@ var Word
 var Words = []
 var Wanted = []
 var win = 0
+var loss = 0
 
 function WantedLetters() {
   Wanted = Word.split('')
@@ -51,7 +53,10 @@ function update() {
   currentRow = 1
   nextSel = 1
   win = 0
+  loss = 0
+  bottomText.innerHTML = "You lost!"
   winScreen.classList.remove("won")
+  winScreen.classList.remove("loss")
   tileSize()
   openWord()
 
@@ -123,9 +128,11 @@ function checkSpelling(inputWord, inputWordFull) {
   }
 
   if (Word != inputWordFull || win) {
+    let input = false;
     Wanted.forEach((checkEnd, indexEnd) => {
       inputWord.forEach((checkInp,indexInp) => {
         if (checkInp == checkEnd) {
+          input = true
           const currentp = document.getElementById(indexInp + (currentRow-1) * columns + 1).parentNode;
           if (indexInp == indexEnd) {
             currentp.style.setProperty("background-color", "#45ff17")
@@ -135,20 +142,28 @@ function checkSpelling(inputWord, inputWordFull) {
             const backgroundColor = style.getPropertyValue('background-color');
             if (backgroundColor !== "rgb(69, 255, 23)") {
               currentp.style.setProperty("background-color", "orange")
-            } else {
-            }
+            } 
           }
         }
       })
     });
     document.getElementById(`${nextSel}p`).classList.remove("current")
-    nextSel++;
-    document.getElementById(`${nextSel}p`).classList.add("current")
-    currentRow++
+    if (currentRow === rows && input) {
+      addLossText();
+      loss = 1
+      bottomText.innerHTML = `You lost! The word was ${Word}!`
+    }
+    else {
+      nextSel++;
+      document.getElementById(`${nextSel}p`).classList.add("current")
+      currentRow++
+    }
+    
   }
   else {
     for(let i = (currentRow - 1) * columns + 1; i <= currentRow * columns; i++) {
       document.getElementById(`${i}p`).style.setProperty("background-color", "#45ff17")
+      document.getElementById(`${i}p`).classList.add("fieldWin")
     }
     document.getElementById(`${nextSel}p`).classList.remove("current")
     win = 1
@@ -174,20 +189,20 @@ function checkWord() {
 }
 
 document.addEventListener('keydown', function(event) {
-  if (event.key >= 'a' && event.key <= 'z' && !win) {
+  if (event.key >= 'a' && event.key <= 'z' && !win && !loss) {
     enterLetter(event.key)
-  } else if (event.key == 'Backspace' && !win) {
+  } else if (event.key == 'Backspace' && !win && !loss) {
     removeLetter()
-  } else if (event.key == 'Enter' && !win) {
+  } else if (event.key == 'Enter' && !win && !loss) {
     checkWord()
   } else if (event.key == 'Escape') {
     if (active.classList.contains('wordleOpen') && !(button.classList.contains('disabled'))){
       clear()
       active.classList.remove('wordleOpen')
     }
-  } else if (event.key == 'ArrowLeft' && !win){
+  } else if (event.key == 'ArrowLeft' && !win && !loss){
     goLeft()
-  } else if (event.key == 'ArrowRight' && !win){
+  } else if (event.key == 'ArrowRight' && !win && !loss){
     goRight()
   }
 });
@@ -272,6 +287,10 @@ function goRight() {
 }
 
 var WinAnim = 0
+
+function addLossText() {
+  winScreen.classList.add("loss")
+}
 
 function winAnimation() {
   // TODO: victory text

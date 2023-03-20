@@ -1,5 +1,5 @@
 # Open the input file and read the words
-with open("words.txt", "r") as f:
+with open("common_words10000.txt", "r") as f:
     words = f.read().split()
 
 # Sort the words by length
@@ -21,7 +21,7 @@ for word in words:
 # Loop through the dictionary and write each list to a new file
 for length, words in words_by_length.items():
     # Create a file name based on the length
-    file_name = f"output_{length}.txt"
+    file_name = f"letters_{length}.txt"
     # Open the file and write the words
     with open(file_name, "w") as f:
         for word in words:

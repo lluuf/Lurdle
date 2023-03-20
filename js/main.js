@@ -120,15 +120,18 @@ function retrieveData() {
 
     if (localStorage.getItem('light') == 1) {
         document.body.classList.add('light')
+        darkDisplay.innerHTML = '<i class="light-icon fa-regular fa-sun"></i>'
     }
 }
 
 darkButton.addEventListener("click", () => {
     if (document.body.classList.contains('light')) {
         localStorage.setItem('light', 0)
+        darkDisplay.innerHTML = '<i class="light-icon fa-regular fa-moon"></i>'
     }
     else {
         localStorage.setItem('light', 1)
+        darkDisplay.innerHTML = '<i class="light-icon fa-regular fa-sun"></i>'
     }
     document.body.classList.toggle('light');
 })
